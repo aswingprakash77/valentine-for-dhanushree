@@ -10,7 +10,7 @@ document.querySelectorAll(".clickable").forEach(el => {
   el.onclick = () => {
     el.textContent = "Okay okay 😄 you found the secret";
   };
-});
+}); 
 
 document.getElementById("arey").onclick = () => {
   document.getElementById("angry").classList.remove("hidden");
@@ -49,3 +49,4 @@ document.body.addEventListener("click", e => {
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 800);
 });
+
