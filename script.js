@@ -1,40 +1,51 @@
-const intro = document.getElementById("intro");
-const content = document.getElementById("content");
-const song1 = document.getElementById("song1");
-const song2 = document.getElementById("song2");
+const start = document.getElementById("start");
+const app = document.getElementById("app");
 
-intro.addEventListener("click", () => {
-  intro.style.display = "none";
-  content.classList.remove("hidden");
-  song1.volume = 0.7;
-  song1.play();
-});
-
-document.getElementById("trigger").onclick = () => {
-  document.getElementById("reaction").classList.remove("hidden");
+start.onclick = () => {
+  start.style.display = "none";
+  app.classList.remove("hidden");
 };
 
-const noBtn = document.getElementById("no");
-noBtn.addEventListener("mouseover", () => {
-  noBtn.style.left = Math.random() * 200 - 100 + "px";
-  noBtn.style.top = Math.random() * 200 - 100 + "px";
-});
-
-document.querySelectorAll(".yes").forEach(btn => {
-  btn.onclick = () => {
-    song1.pause();
-    song2.currentTime = 45;
-    song2.play();
-    document.getElementById("final").classList.remove("hidden");
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+document.querySelectorAll(".clickable").forEach(el => {
+  el.onclick = () => {
+    el.textContent = "Okay okay 😄 you found the secret";
   };
 });
 
-// Countdown
-let count = 5;
-const countEl = document.getElementById("count");
-const timer = setInterval(() => {
-  count--;
-  countEl.textContent = count;
-  if (count === 0) clearInterval(timer);
-}, 1000);
+document.getElementById("arey").onclick = () => {
+  document.getElementById("angry").classList.remove("hidden");
+  document.body.style.background = "darkred";
+  setTimeout(() => {
+    document.body.style.background = "";
+  }, 600);
+};
+
+const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", () => {
+  reveals.forEach(r => {
+    const top = r.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      r.classList.add("show");
+    }
+  });
+});
+
+const no = document.getElementById("no");
+no.addEventListener("mouseover", () => {
+  no.style.left = Math.random() * 200 - 100 + "px";
+});
+
+document.getElementById("yes").onclick = () => {
+  document.getElementById("final").classList.remove("hidden");
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+};
+
+document.body.addEventListener("click", e => {
+  const heart = document.createElement("div");
+  heart.textContent = "❤️";
+  heart.style.position = "fixed";
+  heart.style.left = e.clientX + "px";
+  heart.style.top = e.clientY + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 800);
+});
